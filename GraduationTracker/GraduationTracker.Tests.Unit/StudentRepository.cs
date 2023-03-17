@@ -1,69 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GraduationTracker.DAL;
 using GraduationTracker.Models;
 
-/*
 namespace GraduationTracker.Tests.Unit
 {
-    [TestClass]
-    public class GraduationTrackerTests
+    public class StudentRepository : IStudentRepository
     {
-        private Student[] _students;
-        private IStudentRepository _studentRepository;
-        private ICourseRepository _courseRepository;
-        private readonly IDiplomaRepository _diplomaRepo;
-        private readonly IRequirementRepository _requirmentRepo;
-        private Diploma _diploma;
-        private IGraduationTracker _tracker;
-
-        /// <summary>
-        /// Initialize test data to be  used by all test
-        /// </summary>
-        [TestInitialize] 
-        public void Init() 
+        public IEnumerable<Student> GetStudents()
         {
-            _students = GetStudentTestData();
-            _studentRepository = new StudentRepository();
-            _diploma = GetDiplomaTestData();
-            _tracker = new GraduationTracker.BLL.GraduationTracker(_studentRepository, _courseRepository, _diplomaRepo, _requirmentRepo);
-        }
-
-        /// <summary>
-        /// Cleanup resources
-        /// </summary>
-        [TestCleanup] 
-        public void Cleanup()
-        {
-            _students = null;
-            _diploma = null;
-            _tracker = null;
-        }
-
-        [TestMethod]
-        public void TestHasCredits()
-        {
-            // Arrange
-            var graduated = new List<Tuple<bool, STANDING>>();
-
-            // Act
-            foreach (var student in _students)
-            {
-                graduated.Add(_tracker.HasGraduated(_diploma, student));
-            }
-
-            // Assert
-            Assert.IsTrue(graduated.Any());
-        }
-
-        // Vishal: Add more tests
-
-        private static Student[] GetStudentTestData()
-        {
-            // Vishal: Add more test data
-            var students = new[]
+            return new[]
             {
                 new Student
                 {
@@ -109,21 +55,33 @@ namespace GraduationTracker.Tests.Unit
                         new Course{Id = 4, Name = "Physichal Education", Mark=40 }
                     }
                 }
-
-                //tracker.HasGraduated()
             };
-            return students;
         }
 
-        private static Diploma GetDiplomaTestData()
+        public Student GetStudentByID(int studentId)
         {
-            return new Diploma
+            var students = GetStudents().ToArray();
+            Student student = null;
+
+            for (int i = 0; i < students.Length; i++)
             {
-                Id = 1,
-                Credits = 4,
-                Requirements = new int[] { 100, 102, 103, 104 }
-            };
+                if (studentId == students[i].Id)
+                {
+                    student = students[i];
+                    break;
+                }
+            }
+            return student;
+        }
+
+        public GraduationResult GetGraduationResult(int studentId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public GraduationResult GetGraduationResult(Student student)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
-*/

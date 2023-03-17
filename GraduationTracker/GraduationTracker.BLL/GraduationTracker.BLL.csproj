@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GraduationTracker.DAL\GraduationTracker.DAL.csproj" />
+    <ProjectReference Include="..\GraduationTracker.Models\GraduationTracker.Models.csproj" />
+  </ItemGroup>
+
+</Project>

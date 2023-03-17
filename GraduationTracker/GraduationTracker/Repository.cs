@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GraduationTracker.Models;
 
 namespace GraduationTracker
 {
@@ -18,6 +14,7 @@ namespace GraduationTracker
                 if (id == students[i].Id)
                 {
                     student = students[i];
+                    break; 
                 }
             }
             return student;
@@ -33,6 +30,7 @@ namespace GraduationTracker
                 if (id == diplomas[i].Id)
                 {
                     diploma = diplomas[i];
+                    break;
                 }
             }
             return diploma;
@@ -49,6 +47,7 @@ namespace GraduationTracker
                 if (id == requirements[i].Id)
                 {
                     requirement = requirements[i];
+                    break;
                 }
             }
             return requirement;
@@ -69,67 +68,65 @@ namespace GraduationTracker
         }
 
         public static Requirement[] GetRequirements()
-        {   
-                return new[]
-                {
-                    new Requirement{Id = 100, Name = "Math", MinimumMark=50, Courses = new int[]{1}, Credits=1 },
-                    new Requirement{Id = 102, Name = "Science", MinimumMark=50, Courses = new int[]{2}, Credits=1 },
-                    new Requirement{Id = 103, Name = "Literature", MinimumMark=50, Courses = new int[]{3}, Credits=1},
-                    new Requirement{Id = 104, Name = "Physichal Education", MinimumMark=50, Courses = new int[]{4}, Credits=1 }
-                };
+        {
+            return new[]
+            {
+                new Requirement{Id = 100, Name = "Math", MinimumMark=50, Courses = new int[]{1}, Credits=1 },
+                new Requirement{Id = 102, Name = "Science", MinimumMark=50, Courses = new int[]{2}, Credits=1 },
+                new Requirement{Id = 103, Name = "Literature", MinimumMark=50, Courses = new int[]{3}, Credits=1},
+                new Requirement{Id = 104, Name = "Physichal Education", MinimumMark=50, Courses = new int[]{4}, Credits=1 }
+            };
         }
+
         private static Student[] GetStudents()
         {
             return new[]
             {
-               new Student
-               {
-                   Id = 1,
-                   Courses = new Course[]
-                   {
-                        new Course{Id = 1, Name = "Math", Mark=95 },
-                        new Course{Id = 2, Name = "Science", Mark=95 },
-                        new Course{Id = 3, Name = "Literature", Mark=95 },
-                        new Course{Id = 4, Name = "Physichal Education", Mark=95 }
-                   }
-               },
-               new Student
-               {
-                   Id = 2,
-                   Courses = new Course[]
-                   {
-                        new Course{Id = 1, Name = "Math", Mark=80 },
-                        new Course{Id = 2, Name = "Science", Mark=80 },
-                        new Course{Id = 3, Name = "Literature", Mark=80 },
-                        new Course{Id = 4, Name = "Physichal Education", Mark=80 }
-                   }
-               },
-            new Student
-            {
-                Id = 3,
-                Courses = new Course[]
+                new Student
                 {
-                    new Course{Id = 1, Name = "Math", Mark=50 },
-                    new Course{Id = 2, Name = "Science", Mark=50 },
-                    new Course{Id = 3, Name = "Literature", Mark=50 },
-                    new Course{Id = 4, Name = "Physichal Education", Mark=50 }
-                }
-            },
-            new Student
-            {
-                Id = 4,
-                Courses = new Course[]
+                    Id = 1,
+                    Courses = new Course[]
+                    {
+                        new Course{Id = 1, Name = "Math", Marks=95 },
+                        new Course{Id = 2, Name = "Science", Marks=95 },
+                        new Course{Id = 3, Name = "Literature", Marks=95 },
+                        new Course{Id = 4, Name = "Physichal Education", Marks=95 }
+                    }
+                },
+                new Student
                 {
-                    new Course{Id = 1, Name = "Math", Mark=40 },
-                    new Course{Id = 2, Name = "Science", Mark=40 },
-                    new Course{Id = 3, Name = "Literature", Mark=40 },
-                    new Course{Id = 4, Name = "Physichal Education", Mark=40 }
+                    Id = 2,
+                    Courses = new Course[]
+                    {
+                        new Course{Id = 1, Name = "Math", Marks=80 },
+                        new Course{Id = 2, Name = "Science", Marks=80 },
+                        new Course{Id = 3, Name = "Literature", Marks=80 },
+                        new Course{Id = 4, Name = "Physichal Education", Marks=80 }
+                    }
+                },
+                new Student
+                {
+                    Id = 3,
+                    Courses = new Course[]
+                    {
+                        new Course{Id = 1, Name = "Math", Marks=50 },
+                        new Course{Id = 2, Name = "Science", Marks=50 },
+                        new Course{Id = 3, Name = "Literature", Marks=50 },
+                        new Course{Id = 4, Name = "Physichal Education", Marks=50 }
+                    }
+                },
+                new Student
+                {
+                    Id = 4,
+                    Courses = new Course[]
+                    {
+                        new Course{Id = 1, Name = "Math", Marks=40 },
+                        new Course{Id = 2, Name = "Science", Marks=40 },
+                        new Course{Id = 3, Name = "Literature", Marks=40 },
+                        new Course{Id = 4, Name = "Physichal Education", Marks=40 }
+                    }
                 }
-            }
-
             };
         }
     }
-
-
 }
