@@ -1,4 +1,5 @@
-﻿using GraduationTracker.DAL.Entities;
+﻿using GraduationTracker.DAL;
+using GraduationTracker.DAL.Entities;
 
 namespace GraduationTracker.BLL
 {

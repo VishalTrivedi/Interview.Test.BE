@@ -1,12 +1,7 @@
-﻿using GraduationTracker.DAL;
-using GraduationTracker.DAL.Entities;
-using Microsoft.EntityFrameworkCore;
-using SQLitePCL;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using GraduationTracker.DAL;
+using GraduationTracker.DAL.Entities;
 
 namespace GraduationTracker.Tests.Unit
 {
@@ -15,42 +10,41 @@ namespace GraduationTracker.Tests.Unit
         public static void GenerateAllTestData(GraduationContext context)
         {
             // Add Courses
-            List<Course> courses = new List<Course>()
+            Course courseMath = new Course()
             {
-                new Course()
-                {
-                    Id = 1,
-                    Name = "Math",
-                    MiminumMark = 50,
-                    RequiredCredits = 1
-                },
-                new Course()
-                {
-                    Id = 2,
-                    Name = "Science",
-                    MiminumMark = 50,
-                    RequiredCredits = 1
-                },
-                new Course()
-                {
-                    Id = 3,
-                    Name = "Literature",
-                    MiminumMark = 50,
-                    RequiredCredits = 1
-                },
-                new Course()
-                {
-                    Id = 4,
-                    Name = "Physichal Education",
-                    MiminumMark = 50,
-                    RequiredCredits = 1
-                }
+                Id = 1,
+                Name = "Math",
+                MiminumMark = 50,
+                RequiredCredits = 1
             };
+            context.Courses.Add(courseMath);
 
-            foreach (var course in courses)
+            Course courseScience = new Course()
             {
-                context.Courses.Add(course);
-            }
+                Id = 2,
+                Name = "Science",
+                MiminumMark = 50,
+                RequiredCredits = 1
+            };
+            context.Courses.Add(courseScience);
+
+            Course courseLiterature = new Course()
+            {
+                Id = 3,
+                Name = "Literature",
+                MiminumMark = 50,
+                RequiredCredits = 1
+            };
+            context.Courses.Add(courseLiterature);
+
+            Course coursePE = new Course()
+            {
+                Id = 4,
+                Name = "Physichal Education",
+                MiminumMark = 50,
+                RequiredCredits = 1
+            };
+            context.Courses.Add(coursePE);
 
             // Add Students
             List<Student> students = new List<Student>()
@@ -101,25 +95,25 @@ namespace GraduationTracker.Tests.Unit
                 new Requirement
                 {
                     Id = 100,
-                    Course = context.Courses.Where(c => c.Name == "Math").SingleOrDefault(),
+                    Course = courseMath,
                     Diploma = diploma
                 },
                 new Requirement
                 {
                     Id = 102,
-                    Course = context.Courses.Where(c => c.Name == "Science").SingleOrDefault(),
+                    Course = courseScience,
                     Diploma = diploma
                 },
                 new Requirement
                 {
                     Id = 103,
-                    Course = context.Courses.Where(c => c.Name == "Literature").SingleOrDefault(),
+                    Course = courseLiterature,
                     Diploma = diploma
                 },
                 new Requirement
                 {
                     Id = 104,
-                    Course = context.Courses.Where(c => c.Name == "Physichal Education").SingleOrDefault(),
+                    Course = coursePE,
                     Diploma = diploma
                 }
             };
@@ -129,6 +123,7 @@ namespace GraduationTracker.Tests.Unit
                 context.Requirements.Add( requirement );
             }
             
+            // Save changes so make adding related entities possible to StudentGrade
             context.SaveChanges();
 
             // Add Student Grades
@@ -138,7 +133,7 @@ namespace GraduationTracker.Tests.Unit
                 {
                     Id = 1,
                     Student = context.Students.Single(s => s.Id == 1),
-                    Course = context.Courses.Single(c => c.Id == 1),
+                    Course = courseMath,
                     Mark = 95,
                     Credits = 1
                 },
@@ -146,7 +141,7 @@ namespace GraduationTracker.Tests.Unit
                 {
                     Id = 2,
                     Student = context.Students.Single(s => s.Id == 1),
-                    Course = context.Courses.Single(c => c.Id == 2),
+                    Course = courseScience,
                     Mark = 95,
                     Credits = 1
                 },
@@ -154,7 +149,7 @@ namespace GraduationTracker.Tests.Unit
                 {
                     Id = 3,
                     Student = context.Students.Single(s => s.Id == 1),
-                    Course = context.Courses.Single(c => c.Id == 3),
+                    Course = courseLiterature,
                     Mark = 95,
                     Credits = 1
                 },
@@ -162,7 +157,7 @@ namespace GraduationTracker.Tests.Unit
                 {
                     Id = 4,
                     Student = context.Students.Single(s => s.Id == 1),
-                    Course = context.Courses.Single(c => c.Id == 4),
+                    Course = coursePE,
                     Mark = 95,
                     Credits = 1
                 },
@@ -170,7 +165,7 @@ namespace GraduationTracker.Tests.Unit
                 {
                     Id = 5,
                     Student = context.Students.Single(s => s.Id == 2),
-                    Course = context.Courses.Single(c => c.Id == 1),
+                    Course = courseMath,
                     Mark = 80,
                     Credits = 1
                 },
@@ -178,7 +173,7 @@ namespace GraduationTracker.Tests.Unit
                 {
                     Id = 6,
                     Student = context.Students.Single(s => s.Id == 2),
-                    Course = context.Courses.Single(c => c.Id == 2),
+                    Course = courseScience,
                     Mark = 80,
                     Credits = 1
                 },
@@ -186,7 +181,7 @@ namespace GraduationTracker.Tests.Unit
                 {
                     Id = 7,
                     Student = context.Students.Single(s => s.Id == 2),
-                    Course = context.Courses.Single(c => c.Id == 3),
+                    Course = courseLiterature,
                     Mark = 80,
                     Credits = 1
                 },
@@ -194,7 +189,7 @@ namespace GraduationTracker.Tests.Unit
                 {
                     Id = 8,
                     Student = context.Students.Single(s => s.Id == 2),
-                    Course = context.Courses.Single(c => c.Id == 4),
+                    Course = coursePE,
                     Mark = 80,
                     Credits = 1
                 },
@@ -202,7 +197,7 @@ namespace GraduationTracker.Tests.Unit
                 {
                     Id = 9,
                     Student = context.Students.Single(s => s.Id == 3),
-                    Course = context.Courses.Single(c => c.Id == 1),
+                    Course = courseMath,
                     Mark = 50,
                     Credits = 1
                 },
@@ -210,7 +205,7 @@ namespace GraduationTracker.Tests.Unit
                 {
                     Id = 10,
                     Student = context.Students.Single(s => s.Id == 3),
-                    Course = context.Courses.Single(c => c.Id == 2),
+                    Course = courseScience,
                     Mark = 50,
                     Credits = 1
                 },
@@ -218,7 +213,7 @@ namespace GraduationTracker.Tests.Unit
                 {
                     Id = 11,
                     Student = context.Students.Single(s => s.Id == 3),
-                    Course = context.Courses.Single(c => c.Id == 3),
+                    Course = courseLiterature,
                     Mark = 50,
                     Credits = 1
                 },
@@ -226,7 +221,7 @@ namespace GraduationTracker.Tests.Unit
                 {
                     Id = 12,
                     Student = context.Students.Single(s => s.Id == 3),
-                    Course = context.Courses.Single(c => c.Id == 4),
+                    Course = coursePE,
                     Mark = 50,
                     Credits = 1
                 },
@@ -234,7 +229,7 @@ namespace GraduationTracker.Tests.Unit
                 {
                     Id = 13,
                     Student = context.Students.Single(s => s.Id == 4),
-                    Course = context.Courses.Single(c => c.Id == 1),
+                    Course = courseMath,
                     Mark = 40,
                     Credits = 1
                 },
@@ -242,7 +237,7 @@ namespace GraduationTracker.Tests.Unit
                 {
                     Id = 14,
                     Student = context.Students.Single(s => s.Id == 4),
-                    Course = context.Courses.Single(c => c.Id == 2),
+                    Course = courseScience,
                     Mark = 40,
                     Credits = 1
                 },
@@ -250,7 +245,7 @@ namespace GraduationTracker.Tests.Unit
                 {
                     Id = 15,
                     Student = context.Students.Single(s => s.Id == 4),
-                    Course = context.Courses.Single(c => c.Id == 3),
+                    Course = courseLiterature,
                     Mark = 40,
                     Credits = 1
                 },
@@ -258,7 +253,7 @@ namespace GraduationTracker.Tests.Unit
                 {
                     Id = 16,
                     Student = context.Students.Single(s => s.Id == 4),
-                    Course = context.Courses.Single(c => c.Id == 4),
+                    Course = coursePE,
                     Mark = 40,
                     Credits = 1
                 },
