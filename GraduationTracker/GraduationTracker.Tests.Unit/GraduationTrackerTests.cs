@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GraduationTracker.DAL;
-using GraduationTracker.Models;
+using GraduationTracker.DAL.Entities;
 
 /*
 namespace GraduationTracker.Tests.Unit

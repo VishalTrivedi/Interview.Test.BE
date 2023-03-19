@@ -1,5 +1,5 @@
 ﻿using System;
-using GraduationTracker.Models;
+using GraduationTracker.DAL.Entities;
 
 namespace GraduationTracker
 {

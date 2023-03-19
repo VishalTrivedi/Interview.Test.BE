@@ -1,11 +1,11 @@
-﻿using GraduationTracker.Models;
+﻿using GraduationTracker.DAL.Entities;
 
 namespace GraduationTracker.BLL
 {
     public interface IGraduationTracker
     {
-        Tuple<bool, STANDING> HasGraduated(Diploma diploma, Student student);
+        GraduationResult GetGraduationResult(int studentId);
 
-        GraduationResult[] GetGraduationResults();
+        GraduationResult GetGraduationResult(Student student);
     }
 }

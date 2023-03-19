@@ -1,34 +1,24 @@
-﻿using GraduationTracker.Models;
+﻿using GraduationTracker.DAL.Entities;
 
 namespace GraduationTracker.DAL
 {
     public class DiplomaRepository : IDiplomaRepository
     {
-        private readonly RequirementRepository _requirementRepository;
+        private readonly GraduationContext _context;
 
-        public DiplomaRepository(RequirementRepository requirementRepository)
+        public DiplomaRepository(GraduationContext context)
         {
-            _requirementRepository = requirementRepository;
+            _context = context;
         }
-
         public IEnumerable<Diploma> GetDiplomas()
         {
-            return new[]
-            {
-                new Diploma
-                {
-                    Id = 1,
-                    Credits = 4,
-                    Requirements = _requirementRepository.GetRequirements()
-                }
-            };
+            return _context.Diplomas;
         }
 
         public Diploma GetDiplomaById(int diplomaId)
         {
-            var diplomas = GetDiplomas();
-
-            return diplomas.Single(d => d.Id == diplomaId);
+            return _context.Diplomas
+                .Single(d => d.Id == diplomaId);
         }
     }
 }

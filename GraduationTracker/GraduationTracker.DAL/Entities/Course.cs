@@ -1,4 +1,4 @@
-﻿namespace GraduationTracker.Models
+﻿namespace GraduationTracker.DAL.Entities
 {
     public class Course
     {

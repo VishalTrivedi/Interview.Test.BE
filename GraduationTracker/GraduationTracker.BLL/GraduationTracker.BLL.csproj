@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GraduationTracker.DAL\GraduationTracker.DAL.csproj" />
-    <ProjectReference Include="..\GraduationTracker.Models\GraduationTracker.Models.csproj" />
   </ItemGroup>
 
 </Project>

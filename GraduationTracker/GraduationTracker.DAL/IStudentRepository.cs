@@ -1,4 +1,4 @@
-﻿using GraduationTracker.Models;
+﻿using GraduationTracker.DAL.Entities;
 
 namespace GraduationTracker.DAL
 {
@@ -7,10 +7,6 @@ namespace GraduationTracker.DAL
         IEnumerable<Student> GetStudents();
         
         Student GetStudentByID(int studentId);
-
-        GraduationResult GetGraduationResult(int studentId);
-
-        GraduationResult GetGraduationResult(Student student);
 
         /*
         
