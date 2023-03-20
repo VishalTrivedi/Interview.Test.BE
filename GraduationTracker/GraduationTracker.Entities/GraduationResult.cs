@@ -1,6 +1,4 @@
-﻿using GraduationTracker.Entities;
-
-namespace GraduationTracker.DAL
+﻿namespace GraduationTracker.Entities
 {
     public class GraduationResult
     {
