@@ -1,48 +1,48 @@
-﻿using GraduationTracker.DAL;
-using GraduationTracker.Entities;
+﻿using GraduationTracker.Entities;
 
 namespace GraduationTracker.BLL
 {
     public class GraduationTracker : IGraduationTracker
     {
-        public GraduationResult GetGraduationResult(Student student, List<StudentGrade> studentGrade, Diploma diploma)
+        public GraduationResult GetGraduationResult(IEnumerable<StudentGrade> studentGrade, Diploma diploma)
         {
-            return CalcualteGraduationResult(student, studentGrade, diploma);
+            return CalcualteGraduationResult(studentGrade, diploma);
         }
 
-        private GraduationResult CalcualteGraduationResult(Student student, List<StudentGrade> studentGrade, Diploma diploma)
+        private GraduationResult CalcualteGraduationResult(IEnumerable<StudentGrade> studentGrade, Diploma diploma)
         {
             // TODO: check for null objects
-            List<Course> diplomaCourses = diploma.Requirements
-                                            .Select(d => d.Course)
-                                            .ToList();
+            IEnumerable<Course> diplomaCourses = diploma.Requirements
+                                            .Select(d => d.Course);
 
             int averageMarks = CalculageAverageMarks(diplomaCourses, studentGrade);
 
             switch (averageMarks)
             {
                 case >= 95:
-                    return new GraduationResult(student, true, STANDING.SumaCumLaude);
+                    return new GraduationResult(true, STANDING.SumaCumLaude);
                 case >= 80:
-                    return new GraduationResult(student, true, STANDING.MagnaCumLaude);
+                    return new GraduationResult(true, STANDING.MagnaCumLaude);
                 case >= 50:
-                    return new GraduationResult(student, true, STANDING.Average);
+                    return new GraduationResult(true, STANDING.Average);
                 case > 0:
-                    return new GraduationResult(student, false, STANDING.Remedial);
+                    return new GraduationResult(false, STANDING.Remedial);
                 default:
-                    return new GraduationResult(student, false, STANDING.None);
+                    return new GraduationResult(false, STANDING.None);
             }
         }
 
-        private int CalculageAverageMarks(IEnumerable<Course> courses, List<StudentGrade> studentGrade)
+        private int CalculageAverageMarks(IEnumerable<Course> courses, IEnumerable<StudentGrade> studentGrade)
         {
             // TODO: Will credits be used for weighted average (Credits is currently not used)
             var credits = 0;
             var totalMarks = 0;
 
+            List<StudentGrade> studentGradeList = studentGrade.ToList();
+
             foreach (var course in courses)
             {
-                var studentCourse = studentGrade.Find(d => d.Course == course);
+                var studentCourse = studentGradeList.Find(d => d.Course == course);
                 
                 if (studentCourse != null)
                 {

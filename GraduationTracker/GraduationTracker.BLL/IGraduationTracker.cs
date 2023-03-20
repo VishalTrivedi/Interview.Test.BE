@@ -1,12 +1,9 @@
-﻿using GraduationTracker.DAL;
-using GraduationTracker.Entities;
+﻿using GraduationTracker.Entities;
 
 namespace GraduationTracker.BLL
 {
     public interface IGraduationTracker
     {
-        //GraduationResult GetGraduationResult(int studentId);
-
-        GraduationResult GetGraduationResult(Student student, List<StudentGrade> studentGrade, Diploma diploma);
+        GraduationResult GetGraduationResult(IEnumerable<StudentGrade> studentGrade, Diploma diploma);
     }
 }

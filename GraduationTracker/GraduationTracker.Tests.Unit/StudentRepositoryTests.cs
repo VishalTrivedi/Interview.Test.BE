@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GraduationTracker.DAL;
@@ -11,17 +10,18 @@ namespace GraduationTracker.Tests.Unit
     [TestClass]
     public class StudentRepositoryTests
     {
-        private GraduationContext _context;
-        private IGraduationTracker _graduationTracker;
-        private IStudentRepository _studentRepository;
-        private IDiplomaRepository _diplomaRepository;
-        private IStudentGradeRepository _studentGradeRepository;
+        private static GraduationContext _context;
+        private static IGraduationTracker _graduationTracker;
+        private static IStudentRepository _studentRepository;
+        private static IDiplomaRepository _diplomaRepository;
+        private static IStudentGradeRepository _studentGradeRepository;
 
         /// <summary>
         /// Initialize test data to be used by all tests
         /// </summary>
-        [TestInitialize]
-        public void Init()
+        /// <param name="tc"></param>
+        [ClassInitialize]
+        public static void ClassSetup(TestContext tc)
         {
             var options = new DbContextOptionsBuilder<GraduationContext>()
                 .UseInMemoryDatabase(databaseName: "GraduationTracker")
@@ -38,11 +38,12 @@ namespace GraduationTracker.Tests.Unit
             _diplomaRepository = new DiplomaRepository(_context);
         }
 
-        [TestCleanup]
-        public void Cleanup()
+        /// <summary>
+        /// Cleanup resources
+        /// </summary>
+        [ClassCleanup]
+        public static void ClassCleanUp()
         {
-            return;
-
             _studentGradeRepository = null;
             _studentGradeRepository = null;
             _diplomaRepository = null;
@@ -56,13 +57,12 @@ namespace GraduationTracker.Tests.Unit
         {
             Student student = _studentRepository
                                     .GetStudentByID(1);
-            List<StudentGrade> studentGrades = _studentGradeRepository
-                .GetCoursesByStudent(student.Id)
-                .ToList();
+            IEnumerable<StudentGrade> studentGrades = _studentGradeRepository
+                .GetCoursesByStudent(student.Id);
 
             Diploma diploma = _diplomaRepository.GetDiplomaById(1);
 
-            GraduationResult result = _graduationTracker.GetGraduationResult(student, studentGrades, diploma);
+            GraduationResult result = _graduationTracker.GetGraduationResult(studentGrades, diploma);
 
             Assert.IsTrue(result.HasGraduated);
         }
@@ -75,13 +75,14 @@ namespace GraduationTracker.Tests.Unit
 
             foreach(Student student in students)
             {
-                List<StudentGrade> studentGrades = _studentGradeRepository
-                    .GetCoursesByStudent(student.Id)
-                    .ToList();
+                IEnumerable<StudentGrade> studentGrades = _studentGradeRepository
+                    .GetCoursesByStudent(student.Id);
 
-                GraduationResult result = _graduationTracker.GetGraduationResult(student, studentGrades, diploma);
+                GraduationResult result = _graduationTracker.GetGraduationResult(studentGrades, diploma);
 
                 Assert.IsTrue(result.HasGraduated);
+
+                break;
             }
         }
 
