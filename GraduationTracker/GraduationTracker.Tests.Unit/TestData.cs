@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using GraduationTracker.DAL;
-using GraduationTracker.DAL.Entities;
+using GraduationTracker.Entities;
 
 namespace GraduationTracker.Tests.Unit
 {
@@ -120,7 +120,7 @@ namespace GraduationTracker.Tests.Unit
 
             foreach (var requirement in requirements)
             {
-                context.Requirements.Add( requirement );
+                context.Requirements.Add(requirement);
             }
             
             // Save changes so make adding related entities possible to StudentGrade

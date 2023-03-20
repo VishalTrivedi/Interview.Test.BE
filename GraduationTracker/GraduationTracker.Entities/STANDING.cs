@@ -1,4 +1,4 @@
-﻿namespace GraduationTracker.DAL
+﻿namespace GraduationTracker.Entities
 {
     public enum STANDING
     {

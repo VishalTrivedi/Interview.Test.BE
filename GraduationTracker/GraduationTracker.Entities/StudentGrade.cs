@@ -1,4 +1,4 @@
-﻿namespace GraduationTracker.DAL.Entities
+﻿namespace GraduationTracker.Entities
 {
     public class StudentGrade
     {
@@ -16,7 +16,7 @@
         //public int StudentId { get; set; }
         //public virtual Student Student { get; set; }
 
-        // Opotion 2
+        // Option 2
         public int CourseId { get; set; }
         public Course Course { get; set; }
 

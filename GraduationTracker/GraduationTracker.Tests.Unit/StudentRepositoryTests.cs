@@ -3,7 +3,8 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GraduationTracker.DAL;
-using GraduationTracker.DAL.Entities;
+using GraduationTracker.BLL;
+using GraduationTracker.Entities;
 
 namespace GraduationTracker.Tests.Unit
 {
@@ -11,7 +12,10 @@ namespace GraduationTracker.Tests.Unit
     public class StudentRepositoryTests
     {
         private GraduationContext _context;
+        private IGraduationTracker _graduationTracker;
         private IStudentRepository _studentRepository;
+        private IDiplomaRepository _diplomaRepository;
+        private IStudentGradeRepository _studentGradeRepository;
 
         /// <summary>
         /// Initialize test data to be used by all tests
@@ -27,15 +31,61 @@ namespace GraduationTracker.Tests.Unit
 
             TestData.GenerateAllTestData(_context);
 
+            _graduationTracker = new GraduationTracker.BLL.GraduationTracker();
+
             _studentRepository = new StudentRepository(_context);
+            _studentGradeRepository = new StudentGradeRepository(_context);
+            _diplomaRepository = new DiplomaRepository(_context);
+        }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            return;
+
+            _studentGradeRepository = null;
+            _studentGradeRepository = null;
+            _diplomaRepository = null;
+
+            _context.Dispose();
+            _context = null;
         }
 
         [TestMethod]
-        public void TestStudents()
+        public void TestStudent()
         {
-            List<Student> students = _studentRepository.GetStudents().ToList();
+            Student student = _studentRepository
+                                    .GetStudentByID(1);
+            List<StudentGrade> studentGrades = _studentGradeRepository
+                .GetCoursesByStudent(student.Id)
+                .ToList();
 
-            Assert.IsTrue(students.Count() > 1);
+            Diploma diploma = _diplomaRepository.GetDiplomaById(1);
+
+            GraduationResult result = _graduationTracker.GetGraduationResult(student, studentGrades, diploma);
+
+            Assert.IsTrue(result.HasGraduated);
         }
+
+        [TestMethod]
+        public void TestAllStudents()
+        {
+            Diploma diploma = _diplomaRepository.GetDiplomaById(1);
+            var students = _studentRepository.GetStudents();
+
+            foreach(Student student in students)
+            {
+                List<StudentGrade> studentGrades = _studentGradeRepository
+                    .GetCoursesByStudent(student.Id)
+                    .ToList();
+
+                GraduationResult result = _graduationTracker.GetGraduationResult(student, studentGrades, diploma);
+
+                Assert.IsTrue(result.HasGraduated);
+            }
+        }
+
+        // TODO: Add negative test cases, test with invalid data
+        //       Check for marks outside range (0 - 100)
     }
 }

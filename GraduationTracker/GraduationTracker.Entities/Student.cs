@@ -1,4 +1,4 @@
-﻿namespace GraduationTracker.DAL.Entities
+﻿namespace GraduationTracker.Entities
 {
     public class Student
     {
@@ -10,6 +10,6 @@
 
         public DateTime EnrollmentDate { get; set; } = DateTime.Now;
 
-        public virtual ICollection<StudentGrade>? StudentGrades { get; set; }
+        public virtual IEnumerable<StudentGrade>? StudentGrades { get; set; }
     }
 }

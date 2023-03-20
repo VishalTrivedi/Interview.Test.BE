@@ -1,38 +1,23 @@
 ﻿using GraduationTracker.DAL;
-using GraduationTracker.DAL.Entities;
+using GraduationTracker.Entities;
 
 namespace GraduationTracker.BLL
 {
     public class GraduationTracker : IGraduationTracker
     {
-        private readonly IStudentRepository _studentRepo;
-        private readonly IDiplomaRepository _diplomaRepo;
-
-        public GraduationTracker(IStudentRepository studentRepo, 
-            IDiplomaRepository diplomaRepo)
+        public GraduationResult GetGraduationResult(Student student, List<StudentGrade> studentGrade, Diploma diploma)
         {
-            _studentRepo = studentRepo;
-            _diplomaRepo = diplomaRepo;
+            return CalcualteGraduationResult(student, studentGrade, diploma);
         }
 
-        public GraduationResult GetGraduationResult(int studentId)
+        private GraduationResult CalcualteGraduationResult(Student student, List<StudentGrade> studentGrade, Diploma diploma)
         {
-            Student student = _studentRepo.GetStudentByID(studentId);
+            // TODO: check for null objects
+            List<Course> diplomaCourses = diploma.Requirements
+                                            .Select(d => d.Course)
+                                            .ToList();
 
-            return CalcualteGraduationResult(student);
-        }
-
-        public GraduationResult GetGraduationResult(Student student)
-        {
-            return CalcualteGraduationResult(student);
-        }
-
-        private GraduationResult CalcualteGraduationResult(Student student)
-        {
-            // TODO: check if student is null
-            var diploma = _diplomaRepo.GetDiplomas().FirstOrDefault();
-
-            int averageMarks = CalculageAverageMarks(diploma.Requirements, student.Courses);
+            int averageMarks = CalculageAverageMarks(diplomaCourses, studentGrade);
 
             switch (averageMarks)
             {
@@ -49,32 +34,28 @@ namespace GraduationTracker.BLL
             }
         }
 
-        private int CalculageAverageMarks(IEnumerable<Requirement> diplomaRequirements, Course[] studentCourses)
+        private int CalculageAverageMarks(IEnumerable<Course> courses, List<StudentGrade> studentGrade)
         {
-            // Vishal: Credits is never used, why?
+            // TODO: Will credits be used for weighted average (Credits is currently not used)
             var credits = 0;
             var totalMarks = 0;
 
-            for (int i = 0; i < diplomaRequirements.Count(); i++)
+            foreach (var course in courses)
             {
-                for (int j = 0; j < studentCourses.Length; j++)
+                var studentCourse = studentGrade.Find(d => d.Course == course);
+                
+                if (studentCourse != null)
                 {
-                    var requirement = diplomaRequirements.Where(x => x.Id == i).FirstOrDefault();
+                    totalMarks += studentCourse.Mark;
 
-                    if (requirement.Course == studentCourses[j])
+                    if (studentCourse.Mark > course.MiminumMark)
                     {
-                        totalMarks += studentCourses[j].Mark;
-
-                        if (studentCourses[j].Mark > requirement.MinimumMark)
-                        {
-                            credits += requirement.Credits;
-                        }
+                        credits += studentCourse.Credits;
                     }
                 }
             }
 
-            return totalMarks / studentCourses.Length;
+            return totalMarks / studentGrade.Count();
         }
-
     }
 }

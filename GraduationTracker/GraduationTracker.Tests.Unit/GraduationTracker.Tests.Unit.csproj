@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GraduationTracker.BLL\GraduationTracker.BLL.csproj" />
     <ProjectReference Include="..\GraduationTracker.DAL\GraduationTracker.DAL.csproj" />
   </ItemGroup>
 

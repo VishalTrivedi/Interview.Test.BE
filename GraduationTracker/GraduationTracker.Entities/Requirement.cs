@@ -1,4 +1,4 @@
-﻿namespace GraduationTracker.DAL.Entities
+﻿namespace GraduationTracker.Entities
 {
     public class Requirement
     {

@@ -1,4 +1,4 @@
-﻿using GraduationTracker.DAL.Entities;
+﻿using GraduationTracker.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace GraduationTracker.DAL

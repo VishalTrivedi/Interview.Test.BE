@@ -10,4 +10,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="7.0.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GraduationTracker.Entities\GraduationTracker.Entities.csproj" />
+  </ItemGroup>
+
 </Project>

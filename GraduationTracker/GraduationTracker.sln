@@ -14,6 +14,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraduationTracker.DAL", "Gr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraduationTracker.BLL", "GraduationTracker.BLL\GraduationTracker.BLL.csproj", "{5F5035E9-AC25-426C-9FA5-5CF3ACD13A5E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraduationTracker.Entities", "GraduationTracker.Entities\GraduationTracker.Entities.csproj", "{CC4C111C-440B-46B5-8219-849673BE971B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{5F5035E9-AC25-426C-9FA5-5CF3ACD13A5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F5035E9-AC25-426C-9FA5-5CF3ACD13A5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F5035E9-AC25-426C-9FA5-5CF3ACD13A5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC4C111C-440B-46B5-8219-849673BE971B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC4C111C-440B-46B5-8219-849673BE971B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC4C111C-440B-46B5-8219-849673BE971B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC4C111C-440B-46B5-8219-849673BE971B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
